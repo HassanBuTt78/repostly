@@ -19,7 +19,7 @@ ______  _____ ______  _____  _____  _____  _   __   __
 \_| \_|\____/ \_|     \___/ \____/   \_/  \_____/\_/  
 """
 )
-print('### Thanks for using this tool! Feel free to contribute to this project on GitHub! If you have any questions, feel free to submit a GitHub issue. You can find solutions to many common problems in the documentation: https://github.com/HassanBuTt78/repostly.git')
+print('### Thanks for using this tool! Feel free to contribute to this project on GitHub! If you have any questions, feel free to submit a GitHub issue.')
 
 def cycle():
     try:
