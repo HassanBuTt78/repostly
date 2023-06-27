@@ -37,7 +37,7 @@ def downloadPost(url, title):
     ydl_opts = {
         'format': 'bestvideo+bestaudio/best',
         'ffmpeg_location': ffmpeg_location,
-        'outtmpl': f"/videos/{title}",
+        'outtmpl': f"videos/{title}",
     }
     ydl = youtube_dl.YoutubeDL(ydl_opts)
     ydl.download([url])

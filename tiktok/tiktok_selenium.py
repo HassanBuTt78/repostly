@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
@@ -15,7 +17,7 @@ import logging
 browser_logger = logging.getLogger(
     'selenium.webdriver.remote.remote_connection')
 browser_logger.setLevel(logging.ERROR)
-
+driver_service = Service(ChromeDriverManager().install())
 
 def upload_tiktok(title, vid_path, tags):
     for a in range(1, 6):
@@ -32,7 +34,7 @@ def upload_tiktok(title, vid_path, tags):
             c_options.add_argument("--profile-directory=Default")
             # c_options.add_argument("--user-data-dir=C:/Users/Admin/AppData/Local/Google/Chrome/User Data")
 
-            driver = webdriver.Chrome(options=c_options)
+            driver = webdriver.Chrome(options=c_options, service=driver_service)
             driver.set_window_size(1920, 1080)
             driver.get("https://www.tiktok.com/login/phone-or-email/email")
             print('Logging in Tiktok')
