@@ -1,6 +1,7 @@
 import praw
 import youtube_dl
 import os
+import random
 
 from config import REDDIT_USER_AGENT, REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, FFMPEG_PATH
 root_path = os.path.dirname(os.path.abspath('./reddit'))
@@ -19,9 +20,14 @@ def getPosts(subreddit, score_criteria=10):
     for post in posts:
         if post.is_video:
             if post.score > score_criteria:
+
+                if post.title == '':
+                    title = random.randint(1000, 9999)
+                else:
+                    title = post.title
                 post_data = {
                     "id": post.id,
-                    "title": post.title,
+                    "title": title,
                     "url":  post.url,
                     "score": post.score,
                     "commentCount":  post.num_comments,
@@ -29,6 +35,7 @@ def getPosts(subreddit, score_criteria=10):
                     "tags": []
                 }
                 pTitleLinks.append(post_data)
+                
     return pTitleLinks
 
 
@@ -37,7 +44,7 @@ def downloadPost(url, title):
     ydl_opts = {
         'format': 'bestvideo+bestaudio/best',
         'ffmpeg_location': ffmpeg_location,
-        'outtmpl': f"videos/{title}",
+        'outtmpl': f"/videos/{title}",
     }
     ydl = youtube_dl.YoutubeDL(ydl_opts)
     ydl.download([url])

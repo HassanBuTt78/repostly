@@ -32,15 +32,11 @@ def upload_tiktok(title, vid_path, tags):
             c_options.add_argument(
                 '--disable-blink-features=AutomationControlled')
             c_options.add_argument("--profile-directory=Default")
-            # c_options.add_argument("--user-data-dir=C:/Users/Admin/AppData/Local/Google/Chrome/User Data")
 
             driver = webdriver.Chrome(options=c_options, service=driver_service)
             driver.set_window_size(1920, 1080)
             driver.get("https://www.tiktok.com/login/phone-or-email/email")
             print('Logging in Tiktok')
-            # with open('./tiktok/cookies.json', 'r') as file:
-            #     file = file.read()
-            #     cookies = json.loads(file)
 
             cookies = [{
                 "domain": ".tiktok.com",
@@ -66,18 +62,22 @@ def upload_tiktok(title, vid_path, tags):
             upload.send_keys(rf'{vid_path}')
             print('Uploading The Video')
             caption = WebDriverWait(driver, 30).until(EC.presence_of_element_located(
-                (By.XPATH, "/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[1]/div/div[1]/div[2]/div/div[1]/div/div/div")))
+                (By.XPATH, "/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[1]/div/div[1]/div[2]/div/div/div/div/div/div/div/div/div")))
             post_button = WebDriverWait(driver, 30).until(EC.presence_of_element_located(
-                (By.XPATH, "/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[7]/div[2]/button")))
+                (By.XPATH, "/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[8]/div[2]/button")))
             caption.send_keys(title)
             caption.send_keys(Keys.RETURN)
             caption.send_keys(Keys.RETURN)
             caption.send_keys(Keys.RETURN)
+
+
             print('Adding tags...')
             for tag in tags:
                 caption.send_keys(f'#{tag}')
                 time.sleep(2)
                 caption.send_keys(Keys.RETURN)
+            
+
             print('Waiting for upload to finish')
             for a in range(0, 300):
                 if post_button.is_enabled():
